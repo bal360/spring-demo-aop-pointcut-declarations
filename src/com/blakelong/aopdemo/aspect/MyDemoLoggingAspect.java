@@ -12,12 +12,21 @@ public class MyDemoLoggingAspect {
 	@Pointcut("execution(* com.blakelong.aopdemo.dao.*.*(..))")
 	private void forDaoPackage() {};
 	
-	@Before("forDaoPackage()")
+	@Pointcut("execution(* com.blakelong.aopdemo.dao.*.get*(..))")
+	private void getter() {};
+	
+	@Pointcut("execution(* com.blakelong.aopdemo.dao.*.set*(..))")
+	private void setter() {};
+	
+	@Pointcut("forDaoPackage() && !(getter() || setter())")
+	private void forDaoPackageNoGetterAndSetters() {};
+	
+	@Before("forDaoPackageNoGetterAndSetters()")
 	public void beforeAddAccountAdvice() {
 		System.out.println("\n===> Executing @Before advice on method");
 	}
 	
-	@Before("forDaoPackage()")
+	@Before("forDaoPackageNoGetterAndSetters()")
 	public void performApiAnalytics() {
 		System.out.println("\n===> Performing API analytics");
 	}

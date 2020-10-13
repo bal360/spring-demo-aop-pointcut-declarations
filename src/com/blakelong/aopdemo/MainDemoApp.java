@@ -22,6 +22,13 @@ public class MainDemoApp {
 		accountDAO.addAccount(account, true);
 		accountDAO.doWork();
 		
+		// call getter and setter to test individual and combo advice(s)
+		accountDAO.setName("stuff");
+		accountDAO.setServiceCode("gold");
+		
+		String name = accountDAO.getName();
+		String serviceCode = accountDAO.getServiceCode();
+		
 		// call the membership business method
 		membershipDAO.addSillyAccount();
 		membershipDAO.goToSleep();
