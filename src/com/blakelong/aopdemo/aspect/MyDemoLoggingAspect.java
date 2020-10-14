@@ -1,6 +1,9 @@
 package com.blakelong.aopdemo.aspect;
 
+import java.util.List;
+
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -42,4 +45,15 @@ public class MyDemoLoggingAspect {
 		}
 	}
 	
+	@AfterReturning(
+			pointcut="execution(* com.blakelong.aopdemo.dao.AccountDAO.findAccounts(..))",
+			returning="result")
+	public void afterReturningFindAccountsAdvice(JoinPoint joinPoint, List<Account> result) {
+		// print which method we are advising on
+		String method = joinPoint.getSignature().toShortString();
+		System.out.println("\n====> Executing @AfterReturning on method: " + method);
+		
+		// print out the results of the method call
+		System.out.println("\n====> result is: " + result);
+	}
 }

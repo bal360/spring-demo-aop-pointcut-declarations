@@ -21,6 +21,7 @@ public class MainDemoApp {
 		Account account = new Account();
 		account.setName("blake");
 		account.setLevel("Platinum");
+		
 		accountDAO.addAccount(account, true);
 		accountDAO.doWork();
 		
