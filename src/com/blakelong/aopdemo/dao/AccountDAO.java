@@ -3,6 +3,8 @@ package com.blakelong.aopdemo.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.management.RuntimeErrorException;
+
 import org.springframework.stereotype.Component;
 
 import com.blakelong.aopdemo.Account;
@@ -17,7 +19,13 @@ public class AccountDAO {
 		System.out.println(getClass() + ": Doing my db work: adding an account");
 	}
 	
-	public List<Account> findAccounts() {
+	public List<Account> findAccounts(boolean tripWire) {
+		
+		// for academic purposes to simulate exception
+		if (tripWire) {
+			throw new RuntimeException("no soup for you");
+		}
+		
 		List<Account> accounts = new ArrayList<>();
 		
 		// create sample accounts
