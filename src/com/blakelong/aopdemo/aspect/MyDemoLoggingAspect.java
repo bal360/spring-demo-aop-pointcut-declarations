@@ -45,8 +45,11 @@ public class MyDemoLoggingAspect {
 			// log the exception
 			System.out.println("Warning: " + e.getMessage());
 			
-			// give user a custom message
-			result = "Major accident! But no worries, private helicopter on the way";
+			// give user a custom message for handling
+			// result = "Major accident! But no worries, private helicopter on the way";
+			
+			// rethrow exception
+			throw e;
 		}
 		
 		// get end timestamp
