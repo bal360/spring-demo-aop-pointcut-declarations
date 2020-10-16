@@ -1,6 +1,7 @@
 package com.blakelong.aopdemo.aspect;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -20,6 +21,8 @@ import com.blakelong.aopdemo.Account;
 @Order(2)
 @Component
 public class MyDemoLoggingAspect {
+	
+//	private Logger myLogger = Logger.getLogger(getClass().getName());
 	
 	AOPDeclarations aopDeclarations = new AOPDeclarations();
 	
@@ -61,7 +64,7 @@ public class MyDemoLoggingAspect {
 		
 			// print out args
 		for (Object arg : args) {
-			System.out.println(arg);
+			System.out.println(arg.toString());
 			
 			if (arg instanceof Account) {
 				// downcast and print Account specific info
