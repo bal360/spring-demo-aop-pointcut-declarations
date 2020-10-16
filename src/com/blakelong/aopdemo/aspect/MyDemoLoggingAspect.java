@@ -3,6 +3,7 @@ package com.blakelong.aopdemo.aspect;
 import java.util.List;
 
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
@@ -61,6 +62,13 @@ public class MyDemoLoggingAspect {
 		// convert the account names to uppercase
 		convertAccountNamesToUppercase(result);
 		System.out.println("\n====> result is: " + result);
+	}
+	
+	@After("execution(* com.blakelong.aopdemo.dao.AccountDAO.findAccounts(..))")
+	public void afterFinallyFindAccountsAdvice(JoinPoint joinPoint) {
+		
+		String method = joinPoint.getSignature().toShortString();
+		System.out.println("\n====> Executing @After (finally) on method: " + method);
 	}
 	
 	@AfterThrowing(
