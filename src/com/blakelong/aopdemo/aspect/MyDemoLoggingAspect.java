@@ -23,7 +23,7 @@ public class MyDemoLoggingAspect {
 	
 	AOPDeclarations aopDeclarations = new AOPDeclarations();
 	
-	@Around("execution=(* com.blakelong.aopdemo.service.*.getFortune(..))")
+	@Around("execution(* com.blakelong.aopdemo.service.*.getFortune(..))")
 	public Object aroundGetFortune(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
 		
 		// print out the method we are advising on
