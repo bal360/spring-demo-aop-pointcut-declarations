@@ -3,9 +3,11 @@ package com.blakelong.aopdemo.aspect;
 import java.util.List;
 
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -20,6 +22,29 @@ import com.blakelong.aopdemo.Account;
 public class MyDemoLoggingAspect {
 	
 	AOPDeclarations aopDeclarations = new AOPDeclarations();
+	
+	@Around("execution=(* com.blakelong.aopdemo.service.*.getFortune(..))")
+	public Object aroundGetFortune(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+		
+		// print out the method we are advising on
+		String method = proceedingJoinPoint.getSignature().toShortString();
+		System.out.println("\n====> Executing @Around on method: " + method);
+		
+		// get begin timestamp
+		long begin = System.currentTimeMillis();
+		
+		// execute the method
+		Object result = proceedingJoinPoint.proceed();
+		
+		// get end timestamp
+		long end = System.currentTimeMillis();
+		
+		// compute duration and display it
+		long duration = end - begin;
+		System.out.println("\n====> Duration: " + duration / 1000.0 + " seconds");
+		
+		return result;
+	}
 	
 	@Before("com.blakelong.aopdemo.aspect.AOPDeclarations.forDaoPackageNoGetterAndSetters()")
 	public void beforeAddAccountAdvice(JoinPoint joinPoint) {
